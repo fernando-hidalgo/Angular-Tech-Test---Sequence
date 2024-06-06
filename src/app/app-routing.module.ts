@@ -6,9 +6,9 @@ import { VSongCrudComponent } from './views/v-song-crud/v-song-crud.component';
 
 const routes: Routes = [
   {path:'', component: VHomeComponent},
-  {path:'new', component: VSongCrudComponent},
-  {path:':songId', component: VSongDetailsComponent},
-  {path:':songId/edit', component: VSongCrudComponent},
+  {path:'song/new', component: VSongCrudComponent},
+  {path:'song/:songId', component: VSongDetailsComponent},
+  {path:'song/:songId/edit', component: VSongCrudComponent},
 ];
 
 @NgModule({

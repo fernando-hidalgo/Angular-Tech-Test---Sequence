@@ -9,5 +9,4 @@ export class CSongCardComponent {
     @Input() title!: string
     @Input() poster!: string
     @Input() genre!: Array<string>
-    songTitle = "Adore u"
   }
