@@ -1,1 +1,9 @@
-<p>c-song-card works!</p>
+<p-card class="carta-card">
+    <p class="title">{{title}}</p>
+    <div class="carta-content">
+      <img class="card-image" src="{{poster}}" alt="Carta Image">
+    </div>
+    <div class="genres-list">
+      <div class="genre"  *ngFor="let g of genre">{{ "#"+g }}</div>
+    </div>
+</p-card>

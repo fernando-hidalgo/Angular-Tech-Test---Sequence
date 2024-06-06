@@ -8,6 +8,8 @@ import { VSongDetailsComponent } from './views/v-song-details/v-song-details.com
 import { VSongCrudComponent } from './views/v-song-crud/v-song-crud.component';
 import { CSongCardComponent } from './components/c-song-card/c-song-card.component';
 import { CNavbarComponent } from './components/c-navbar/c-navbar.component';
+import { CardModule } from 'primeng/card';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { CNavbarComponent } from './components/c-navbar/c-navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CardModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch()) //Added to solve NG02801 warning, raised due to JSON Server mocked backend
   ],
   bootstrap: [AppComponent]
 })

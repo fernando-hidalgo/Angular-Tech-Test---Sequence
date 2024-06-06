@@ -1,1 +1,7 @@
-<p>v-home works!</p>
+<app-c-song-card 
+    *ngFor="let song of songs" 
+        [routerLink]="[song.id]"
+        [title]="song.title" 
+        [poster]="song.poster" 
+        [genre]="song.genre">
+</app-c-song-card>
