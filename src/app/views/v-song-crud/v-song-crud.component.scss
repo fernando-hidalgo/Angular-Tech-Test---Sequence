@@ -1,0 +1,32 @@
+.another-header{
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid;
+    align-items: flex-end;
+}
+
+.example-form{
+    display: flex;
+    width: 350px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    flex-direction: column;
+}
+
+.tag-input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .example-full-width {
+    flex: 1;
+  }
+  
+  .tag-display {
+    display: inline-block;
+    margin-right: 8px; /* Espacio entre chips */
+    margin-bottom: 8px; /* Espacio entre chips */
+  }
+  
+
+
