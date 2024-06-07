@@ -8,15 +8,23 @@ import { VSongDetailsComponent } from './views/v-song-details/v-song-details.com
 import { VSongCrudComponent } from './views/v-song-crud/v-song-crud.component';
 import { CSongCardComponent } from './components/c-song-card/c-song-card.component';
 import { CNavbarComponent } from './components/c-navbar/c-navbar.component';
-import { CardModule } from 'primeng/card';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
+//PrimeNG
+import { CardModule } from 'primeng/card';
+
+//Angular Material
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -30,19 +38,27 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
 
     //NG Prime Components
     CardModule,
-    SidebarModule,
-    ButtonModule,
+
+    //Material Components
     MatButtonModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatChipsModule,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    provideAnimationsAsync() //Added to solve NG02801 warning, raised due to JSON Server mocked backend
+    provideAnimationsAsync(), //Added to solve NG02801 warning, raised due to JSON Server mocked backend
+    provideNativeDateAdapter() //Mandatory for Angular Material Datepicker
   ],
   bootstrap: [AppComponent]
 })

@@ -15,4 +15,8 @@ export class SongService {
   public getSongs(): Observable<Song[]> {
     return this.httpClient.get<Song[]>(`${HOST}${AppEndpoints.SONGS}`);
   }
+
+  public createSong(song: any) {
+    return this.httpClient.post(`${HOST}${AppEndpoints.SONGS}`, song);
+  }
 }
