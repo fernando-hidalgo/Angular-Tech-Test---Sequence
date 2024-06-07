@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './c-song-card.component.scss'
 })
 export class CSongCardComponent {
-    @Input() title!: string
-    @Input() poster!: string
-    @Input() genre!: Array<string>
+    @Input() title: string | undefined
+    @Input() poster: string | undefined
+    @Input() genre: Array<string> | undefined
   }

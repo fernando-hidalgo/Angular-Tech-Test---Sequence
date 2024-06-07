@@ -15,4 +15,8 @@ export class ArtistService {
   public getAllArtist(): Observable<Artist[]> {
     return this.httpClient.get<Artist[]>(`${HOST}${AppEndpoints.ARTISTS}`);
   }
+
+  public getArtistByID(artistId: number): Observable<Artist> {
+    return this.httpClient.get<Artist>(`${HOST}${AppEndpoints.ARTISTS}/` + artistId);
+  }
 }
