@@ -1,0 +1,25 @@
+{
+    "HOME": {
+        "SIDEBAR": {
+            "MENU": "Menú",
+            "SONGS": "Canciones",
+            "ARTISTS": "Artistas",
+            "COMPANIES": "Compañías"
+        }
+    },
+    "DETAILS": {
+        "RELEASE": "Lanzamiento",
+        "DURATION": "Duración",
+        "RATING": "Valoración"
+    },
+    "CRUD": {
+        "NAV": "Editar/Crear Canción",
+        "TITLE": "Título",
+        "ARTIST": "Artista",
+        "RATING": "Valoración",
+        "DURATION": "Duración",
+        "RELEASE": "Lanzamiento",
+        "GENRES": "Género(s)",
+        "COMPANIES": "Discográfica(s)"
+    }
+}

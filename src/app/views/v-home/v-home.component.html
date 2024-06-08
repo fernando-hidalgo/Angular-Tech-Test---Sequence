@@ -2,28 +2,28 @@
 
     <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
         <div class="navbar-header">
-            <p>Menu</p>
+            <p>{{ 'HOME.SIDEBAR.MENU' | translate }}</p>
             <button mat-icon-button color="accent" (click)="close('toggle button')">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
 
         <div class="navbar-slot " routerLink="">
-            <p>Canciones</p>
-            <button mat-icon-button color="accent">
+            <p>{{ 'HOME.SIDEBAR.SONGS' | translate }}</p>
+            <button mat-icon-button color="accent" (click)="close('toggle button')">
                 <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
 
         <div class="navbar-slot">
-            <p>Artistas</p>
+            <p>{{ 'HOME.SIDEBAR.ARTISTS' | translate }}</p>
             <button mat-icon-button color="accent" disabled="">
                 <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
 
         <div class="navbar-slot">
-            <p>Compañías</p>
+            <p>{{ 'HOME.SIDEBAR.COMPANIES' | translate }}</p>
             <button mat-icon-button color="accent" disabled="">
                 <mat-icon>arrow_forward</mat-icon>
             </button>
@@ -31,7 +31,6 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-
         <div class="another-header">
             <button mat-icon-button color="accent" (click)="sidenav.open()">
                 <mat-icon>menu</mat-icon>
@@ -45,7 +44,6 @@
         <app-c-song-card *ngFor="let song of songs" [routerLink]="['song', song.id]" [title]="song.title" [poster]="song.poster"
             [genre]="song.genre">
         </app-c-song-card>
-
     </mat-sidenav-content>
 
 </mat-sidenav-container>

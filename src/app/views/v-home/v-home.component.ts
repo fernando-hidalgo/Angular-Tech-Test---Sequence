@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../models/song.model';
 import {MatSidenav} from '@angular/material/sidenav';
+
 @Component({
   selector: 'app-v-home',
   templateUrl: './v-home.component.html',
@@ -10,6 +11,7 @@ import {MatSidenav} from '@angular/material/sidenav';
 export class VHomeComponent {
 
   constructor(private songService: SongService) { }
+
   @ViewChild('sidenav') sidenav!: MatSidenav;
   songs!: Song[];
   reason = '';
@@ -28,6 +30,4 @@ export class VHomeComponent {
       this.songs=data
   });
   }
-
-
 }

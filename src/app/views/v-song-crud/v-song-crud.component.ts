@@ -53,45 +53,31 @@ export class VSongCrudComponent {
   ) { 
     this.crudForm = this.fb.group({
       songTitle: ['', {
-        validators: [
-          Validators.required
-        ],
+        validators: [Validators.required],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songArtist: ['', {
-        validators: [
-          Validators.required
-        ],
+        validators: [Validators.required],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songGenres: ['', {
-        validators: [
-          //Validators.required
-        ],
+        validators: [],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songCompanies: ['', {
-        validators: [
-          //Validators.required
-        ],
+        validators: [],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songRelease: ['', {
-        validators: [
-          Validators.required,
-        ],
+        validators: [Validators.required,],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songRating: ['', {
-        validators: [
-          Validators.required,
-        ],
+        validators: [Validators.required,],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
       songDuration: ['', {
-        validators: [
-          Validators.required,
-        ],
+        validators: [Validators.required,],
         updateOn: 'change' // or 'blur' or 'submit'
       }],
     });
@@ -103,20 +89,15 @@ export class VSongCrudComponent {
 
     // Comprobar si la URL contiene "edit"
     if (this.currentUrl.includes('edit')) {
-      // Cargar los valores del formulario desde el servicio o dejarlos vacíos
-      // Aquí debes implementar la lógica para cargar los valores desde el servicio
-      
       this.route.paramMap.subscribe(params => {
-        this.songId = params.get('songId') ?? ''; // Si params.get('songId') es null, se asigna una cadena vacía
+        this.songId = params.get('songId') ?? '';
 
         this.songService.getSongByID(this.songId).subscribe(data => {
-
+          //Set values for them to show properly in edit view
           const releaseDate = moment(data.year, 'YYYY');
-          const selectedMusician = this.musicians.find(musician => musician.id === data.artist);
-
           this.genres=data.genre
 
-
+          //Set Form values to Song current values, in order to edit them
           this.crudForm.patchValue({
             songTitle: data.title,
             songArtist: data.artist,
@@ -130,8 +111,6 @@ export class VSongCrudComponent {
         })
       });
     }
-
-      // Cargar los valores del formulario desde el servicio
       this.artistService.getAllArtist().subscribe(data => {
         this.musicians = data;
       });
