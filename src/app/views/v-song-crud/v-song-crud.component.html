@@ -1,5 +1,5 @@
 <div>
-    <div class="another-header">
+    <div class="header">
         <button mat-icon-button color="accent" routerLink="">
             <mat-icon>arrow_back</mat-icon>
         </button>
@@ -7,7 +7,7 @@
         <p>{{ 'CRUD.NAV' | translate }}</p>
     </div>
     
-    <form [formGroup]="crudForm" class="example-form">
+    <form [formGroup]="crudForm" class="form" *ngIf="this.musicians.length; else skeleton">
         <mat-form-field color="accent">
           <mat-label>{{ 'CRUD.TITLE' | translate }}</mat-label>
           <input matInput placeholder="Indique el título de la canción" formControlName="songTitle">
@@ -40,8 +40,8 @@
             </mat-datepicker>
         </mat-form-field>
 
-        <div [formGroup]="crudForm" class="tag-input-container">
-            <mat-form-field class="example-full-width" color="accent">
+        <div [formGroup]="crudForm" class="form__tag-input">
+            <mat-form-field class="form__tag-input__field" color="accent">
                 <mat-label>{{ 'CRUD.GENRES' | translate }}</mat-label>
                 <input matInput placeholder="Indique el o los géneros" formControlName="songGenres">
             </mat-form-field>
@@ -50,7 +50,7 @@
             </button>
         </div>
         <div>
-            <div *ngFor="let genre of genres" class="tag-display">
+            <div *ngFor="let genre of genres" class="form__tag-display">
                 <mat-chip-row>
                     <mat-chip (removed)="removeGenre(genre)">
                         {{genre}}
@@ -62,8 +62,8 @@
             </div>
         </div>
 
-        <div [formGroup]="crudForm" class="tag-input-container">
-            <mat-form-field class="example-full-width" color="accent">
+        <div [formGroup]="crudForm" class="form__tag-input">
+            <mat-form-field class="form__tag-input__field" color="accent">
                 <mat-label>{{ 'CRUD.COMPANIES' | translate }}</mat-label>
                 <input matInput placeholder="Indique la o las compañías" formControlName="songCompanies">
             </mat-form-field>
@@ -72,7 +72,7 @@
             </button>
         </div>
         <div>
-            <div *ngFor="let company of companies" class="tag-display">
+            <div *ngFor="let company of companies" class="form__tag-display">
                 <mat-chip-row>
                     <mat-chip (removed)="removeCompany(company)">
                         {{company}}
@@ -83,9 +83,18 @@
                 </mat-chip-row>
             </div>
         </div>
+
+        <div class="action">
+            <button type="submit" mat-icon-button color="accent" class="action__button" (click)="createSong()" [disabled]="crudForm.invalid">
+                <mat-icon>check</mat-icon>
+            </button>
+        </div>
     </form>
 
-    <button type="submit" mat-icon-button color="accent" (click)="createSong()" [disabled]="crudForm.invalid">
-        <mat-icon>check</mat-icon>
-    </button>
+    <ng-template #skeleton>
+        <div class="content__spinner">
+            <mat-spinner color="accent" class="content__spinner__spin"></mat-spinner>
+        </div>
+    </ng-template>
+
 </div>

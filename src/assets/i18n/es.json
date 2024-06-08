@@ -8,6 +8,7 @@
         }
     },
     "DETAILS": {
+        "NAV": "Detalles de la Canción",
         "RELEASE": "Lanzamiento",
         "DURATION": "Duración",
         "RATING": "Valoración"

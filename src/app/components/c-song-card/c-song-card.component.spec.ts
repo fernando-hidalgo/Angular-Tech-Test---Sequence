@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CardModule } from 'primeng/card';
 import { CSongCardComponent } from './c-song-card.component';
 
 describe('CSongCardComponent', () => {
@@ -8,7 +8,8 @@ describe('CSongCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CSongCardComponent]
+      declarations: [CSongCardComponent],
+      imports: [CardModule]
     })
     .compileComponents();
     

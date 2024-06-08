@@ -1,9 +1,9 @@
-<p-card class="carta-card">
-    <p class="title">{{title}}</p>
-    <div class="carta-content">
-      <img class="card-image" src="{{poster}}" alt="Carta Image">
+<p-card class="card">
+    <p class="card__title">{{title}}</p>
+    <div class="card__content">
+      <img class="card__content__image" src="{{poster}}" alt="Carta Image">
     </div>
-    <div class="genres-list">
-      <div class="genre"  *ngFor="let g of genre">{{ "#"+g }}</div>
+    <div class="card__genres">
+      <div class="card__genres__genre"  *ngFor="let g of genre">{{ "#"+g }}</div>
     </div>
 </p-card>

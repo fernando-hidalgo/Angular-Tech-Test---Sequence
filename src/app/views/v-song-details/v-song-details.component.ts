@@ -18,6 +18,7 @@ export class VSongDetailsComponent {
   constructor(private route: ActivatedRoute, private songService: SongService, private artistService: ArtistService, private router: Router) {}
 
   ngOnInit(): void {
+    setTimeout(() => { 
     this.route.paramMap.subscribe(params => {
       this.songId = params.get('songId') ?? ''; // Si params.get('songId') es null, se asigna una cadena vacía
 
@@ -27,9 +28,9 @@ export class VSongDetailsComponent {
         this.artistService.getArtistByID(song.artist)?.subscribe(artist => {
           this.artist = artist
         })
-         
-      }
-    )});
+      })
+    })
+    ;}, 1000); // Simulating a delay of 1 seconds, as requested
   };
 
   deleteSong(){
@@ -40,6 +41,7 @@ export class VSongDetailsComponent {
 
   editSong(){
     const currentUrl = this.router.url;
-    this.router.navigate([currentUrl + '/edit']);
+    this.router.navigate([currentUrl, 'edit']);
   }
+
 }
