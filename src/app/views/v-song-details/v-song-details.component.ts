@@ -4,6 +4,7 @@ import { SongService } from '../../services/song.service';
 import { Song } from '../../models/song.model';
 import { ArtistService } from '../../services/artist.service';
 import { Artist } from '../../models/artist.model';
+import { Navigation, URLParams } from '../../../constants';
 
 @Component({
   selector: 'app-v-song-details',
@@ -20,11 +21,14 @@ export class VSongDetailsComponent {
   ngOnInit(): void {
     setTimeout(() => { 
     this.route.paramMap.subscribe(params => {
-      this.songId = params.get('songId') ?? ''; // Si params.get('songId') es null, se asigna una cadena vacía
+      //Get songId from URL
+      this.songId = params.get(URLParams.songId) ?? '';
 
+      //Using said ID, get specific data for that song
       this.songService.getSongByID(this.songId)?.subscribe ( song => {
         this.song = song
 
+        //Get artist of that song, using its ID in the song object
         this.artistService.getArtistByID(song.artist)?.subscribe(artist => {
           this.artist = artist
         })
@@ -35,13 +39,13 @@ export class VSongDetailsComponent {
 
   deleteSong(){
     this.songService.deleteSong(this.songId).subscribe(() => {
-      this.router.navigate(['/'])
+      this.router.navigate([Navigation.BASE])
     })
   }
 
   editSong(){
     const currentUrl = this.router.url;
-    this.router.navigate([currentUrl, 'edit']);
+    this.router.navigate([currentUrl, Navigation.EDIT]);
   }
 
 }

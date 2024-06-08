@@ -1,16 +1,17 @@
 {
   "songs": [
     {
-      "title": "Penny Lane",
+      "title": "Penny Lanee",
       "poster": "http://dummyimage.com/400x600.png/dddddd/000000",
       "genre": [
         "Pop",
-        "Rock"
+        "a",
+        "d"
       ],
-      "year": 1967,
-      "duration": 201,
-      "rating": 9,
-      "artist": "2",
+      "year": 1930,
+      "duration": 202,
+      "rating": 1,
+      "artist": "1",
       "id": "2"
     },
     {
@@ -193,16 +194,6 @@
       "duration": 3,
       "rating": 12,
       "artist": "7"
-    },
-    {
-      "id": "5190",
-      "title": "Penny Lane",
-      "poster": "http://dummyimage.com/400x600.png/dddddd/000000",
-      "genre": [],
-      "year": 1967,
-      "duration": 303,
-      "rating": 9,
-      "artist": 2
     }
   ],
   "artists": [
