@@ -4,17 +4,17 @@
             <mat-icon>arrow_back</mat-icon>
         </button>
     
-        <p>Editar/Crear Canción</p>
+        <p>{{ 'CRUD.NAV' | translate }}</p>
     </div>
     
     <form [formGroup]="crudForm" class="example-form">
         <mat-form-field color="accent">
-          <mat-label>Título</mat-label>
+          <mat-label>{{ 'CRUD.TITLE' | translate }}</mat-label>
           <input matInput placeholder="Indique el título de la canción" formControlName="songTitle">
         </mat-form-field>
 
         <mat-form-field appearance="fill" color="accent">
-            <mat-label>Artista</mat-label>
+            <mat-label>{{ 'CRUD.ARTIST' | translate }}</mat-label>
             <mat-select (selectionChange)="onMusicianSelected($event)" placeholder="Indique el artista de la canción" formControlName="songArtist">
               <mat-option *ngFor="let musician of musicians" [value]="musician.id">
                 {{ musician.name }}
@@ -23,17 +23,17 @@
         </mat-form-field>
 
         <mat-form-field color="accent">
-            <mat-label>Puntuación</mat-label>
+            <mat-label>{{ 'CRUD.RATING' | translate }}</mat-label>
             <input matInput type="number" step="0.1" placeholder="Indique la puntuación" formControlName="songRating">
         </mat-form-field>
 
         <mat-form-field color="accent">
-            <mat-label>Duración</mat-label>
+            <mat-label>{{ 'CRUD.DURATION' | translate }}</mat-label>
             <input matInput type="number" step="50" placeholder="Indique la duración, en segundos" formControlName="songDuration">
         </mat-form-field>
 
         <mat-form-field color="accent">
-            <mat-label>Año</mat-label>
+            <mat-label>{{ 'CRUD.RELEASE' | translate }}</mat-label>
             <input matInput [matDatepicker]="dp" placeholder="Indique el año de lanzamiento" formControlName="songRelease" >
             <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
             <mat-datepicker #dp startView="multi-year" (yearSelected)="setYear($event, dp)">
@@ -42,7 +42,7 @@
 
         <div [formGroup]="crudForm" class="tag-input-container">
             <mat-form-field class="example-full-width" color="accent">
-                <mat-label>Género(s)</mat-label>
+                <mat-label>{{ 'CRUD.GENRES' | translate }}</mat-label>
                 <input matInput placeholder="Indique el o los géneros" formControlName="songGenres">
             </mat-form-field>
             <button mat-icon-button color="accent" (click)="addGenre()">
@@ -64,7 +64,7 @@
 
         <div [formGroup]="crudForm" class="tag-input-container">
             <mat-form-field class="example-full-width" color="accent">
-                <mat-label>Compañía(s)</mat-label>
+                <mat-label>{{ 'CRUD.COMPANIES' | translate }}</mat-label>
                 <input matInput placeholder="Indique la o las compañías" formControlName="songCompanies">
             </mat-form-field>
             <button mat-icon-button color="accent" (click)="addCompany()">
