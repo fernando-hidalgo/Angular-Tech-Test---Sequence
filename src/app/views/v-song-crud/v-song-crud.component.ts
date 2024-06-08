@@ -5,7 +5,7 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from '../../services/song.service';
 import { ArtistService } from '../../services/artist.service';
 
@@ -41,11 +41,15 @@ export class VSongCrudComponent {
   musicians: any[] = [];
   selectedMusicianId?: number;
 
+  songId: string = "";
+  currentUrl: string = ""
+
   constructor(
     private fb: FormBuilder,
     private songService: SongService,
     private artistService: ArtistService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { 
     this.crudForm = this.fb.group({
       songTitle: ['', {
@@ -94,9 +98,43 @@ export class VSongCrudComponent {
   }
 
   ngOnInit(): void {
-    this.artistService.getAllArtist().subscribe(data => {
-      this.musicians = data;
-    });
+    // Obtener la URL actual
+    this.currentUrl = this.router.url;
+
+    // Comprobar si la URL contiene "edit"
+    if (this.currentUrl.includes('edit')) {
+      // Cargar los valores del formulario desde el servicio o dejarlos vacíos
+      // Aquí debes implementar la lógica para cargar los valores desde el servicio
+      
+      this.route.paramMap.subscribe(params => {
+        this.songId = params.get('songId') ?? ''; // Si params.get('songId') es null, se asigna una cadena vacía
+
+        this.songService.getSongByID(this.songId).subscribe(data => {
+
+          const releaseDate = moment(data.year, 'YYYY');
+          const selectedMusician = this.musicians.find(musician => musician.id === data.artist);
+
+          this.genres=data.genre
+
+
+          this.crudForm.patchValue({
+            songTitle: data.title,
+            songArtist: data.artist,
+            songGenres: "",
+            //songCompanies: data.companies, //Refer to README
+            songRelease: releaseDate,
+            songRating: data.rating,
+            songDuration: data.duration
+          });
+
+        })
+      });
+    }
+
+      // Cargar los valores del formulario desde el servicio
+      this.artistService.getAllArtist().subscribe(data => {
+        this.musicians = data;
+      });
   }
 
   onMusicianSelected(event: any): void {
@@ -154,9 +192,16 @@ export class VSongCrudComponent {
       artist: this.crudForm.get('songArtist')?.value
     }
 
-    this.songService.createSong(song).subscribe(() => {
-      this.router.navigate(['/'])
-    })
+    if (this.currentUrl.includes('edit')) {
+      this.songService.editSong(this.songId, song).subscribe(() => {
+        const detailsUrl = this.router.url.replace('/edit', '');
+        this.router.navigate([detailsUrl]) 
+      })
+    } else {
+      this.songService.createSong(song).subscribe(() => {})
+      this.router.navigate(['/']) 
+    }
+    
 
     //Out of Scope: Use songCompanies value to add the new song to said company. 
     //JSON-Server does nor provide an endpoint with that specific funcionality

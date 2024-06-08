@@ -1,1 +1,43 @@
-<p>v-song-details works!</p>
+<div>
+    <div class="another-header">
+        <button mat-icon-button color="accent" routerLink="">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    
+        <p>{{song?.title}} ({{artist?.name}})</p>
+    </div>
+    
+    <app-c-song-card [title]="song?.title" [poster]="song?.poster" [genre]="song?.genre">
+    </app-c-song-card>
+
+    <div class="song-details-container">
+        <div class="song-detail">
+            <p class="detail-label">Lanzamiento</p>
+            <p class="detail-value">{{ song?.year }}</p>
+        </div>
+    
+        <div class="song-detail">
+            <p class="detail-label">Duración</p>
+            <p class="detail-value">{{ song?.duration }} sg</p>
+        </div>
+    
+        <div class="song-detail">
+            <p class="detail-label">Rating</p>
+            <p class="detail-value">{{ song?.rating }}</p>
+        </div>
+    </div>
+    
+
+    <div class="action">
+        <button mat-icon-button color="accent" class="action-button" (click)="editSong()">
+            <mat-icon>mode_edit</mat-icon>
+        </button>
+    
+        <button mat-icon-button color="accent" class="action-button" (click)="deleteSong()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+    
+</div>
+
+

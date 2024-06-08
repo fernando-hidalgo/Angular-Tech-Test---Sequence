@@ -1,0 +1,37 @@
+.another-header{
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid;
+    align-items: flex-end;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-button {
+    margin: 0 5px;
+}
+
+.song-details-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.song-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.detail-value {
+    margin-left: 10px;
+}
