@@ -8,7 +8,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from '../../services/song.service';
 import { ArtistService } from '../../services/artist.service';
-import { DATEPICKER_FORMAT } from '../../../constants';
+import { CRUDFormFields, DATEPICKER_FORMAT, Navigation, URLParams } from '../../../constants';
 
 const moment = _rollupMoment || _moment;
 
@@ -73,14 +73,14 @@ export class VSongCrudComponent {
   }
 
   ngOnInit(): void {
-    // Obtener la URL actual
+    // Get current URL
     this.currentUrl = this.router.url;
 
     setTimeout(() => {
-      // Comprobar si la URL contiene "edit"
-      if (this.currentUrl.includes('edit')) {
+      // Checks if URL contains "edit"
+      if (this.currentUrl.includes(Navigation.EDIT)) {
         this.route.paramMap.subscribe(params => {
-          this.songId = params.get('songId') ?? '';
+          this.songId = params.get(URLParams.songId) ?? '';
 
 
           this.songService.getSongByID(this.songId).subscribe(data => {
@@ -113,12 +113,14 @@ export class VSongCrudComponent {
     this.selectedMusicianId = event.value;
   }
 
+  //Rips year out of moment type, needed to correct display and saving
   setYear(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = moment().year(normalizedYear.year());
-    this.crudForm.get('songRelease')?.setValue(ctrlValue);
+    this.crudForm.get(CRUDFormFields.songRelease)?.setValue(ctrlValue);
     datepicker.close();
   }
 
+  //Add genre tag to array, needed to correct display and saving
   addTag(tagControlName: string, tagArray: string[]) {
     const newTag = this.crudForm.get(tagControlName)?.value.trim();
     if (newTag && !tagArray.includes(newTag)) {
@@ -128,6 +130,7 @@ export class VSongCrudComponent {
     }
   }
 
+  //Removes selected genre tag
   removeTag(tag: string, tagArray: string[]) {
     const index = tagArray.indexOf(tag);
     if (index !== -1) {
@@ -136,7 +139,7 @@ export class VSongCrudComponent {
   }
 
   addGenre() {
-    this.addTag('songGenres', this.genres);
+    this.addTag(CRUDFormFields.songGenres, this.genres);
   }
 
   removeGenre(tag: string) {
@@ -144,7 +147,7 @@ export class VSongCrudComponent {
   }
 
   addCompany() {
-    this.addTag('songCompanies', this.companies);
+    this.addTag(CRUDFormFields.songCompanies, this.companies);
   }
 
   removeCompany(tag: string) {
@@ -153,27 +156,30 @@ export class VSongCrudComponent {
 
 
   createSong() {
+    //Creates DTO object
     let song = {
-      title: this.crudForm.get('songTitle')?.value, //Title
+      title: this.crudForm.get(CRUDFormFields.songTitle)?.value, //Title
       //TODO: Poster Uploader, not implemented due to complexity related to file saving, out of scope with the provided backend
       poster: "http://dummyimage.com/400x600.png/dddddd/000000", //Poster 
       genre: this.genres, //Genres
-      year: this.crudForm.get('songRelease')?.value.year(),
-      duration: this.crudForm.get('songDuration')?.value,
-      rating: this.crudForm.get('songRating')?.value,
-      artist: this.crudForm.get('songArtist')?.value
+      year: this.crudForm.get(CRUDFormFields.songRelease)?.value.year(),
+      duration: this.crudForm.get(CRUDFormFields.songDuration)?.value,
+      rating: this.crudForm.get(CRUDFormFields.songRating)?.value,
+      artist: this.crudForm.get(CRUDFormFields.songArtist)?.value
     }
 
-    if (this.currentUrl.includes('edit')) {
+    //If in "edit mode", song is edited with new data
+    if (this.currentUrl.includes(Navigation.EDIT)) {
       this.songService.editSong(this.songId, song).subscribe(() => {
-        const detailsUrl = this.router.url.replace('/edit', '');
+        const editUrlSegment = `/${Navigation.EDIT}`;
+        const detailsUrl = this.router.url.replace(new RegExp(editUrlSegment, 'g'), '');
         this.router.navigate([detailsUrl])
       })
+    //If not, a new song is created
     } else {
       this.songService.createSong(song).subscribe(() => { })
-      this.router.navigate(['/'])
+      this.router.navigate([Navigation.BASE])
     }
-
 
     //Out of Scope: Use songCompanies value to add the new song to said company. 
     //JSON-Server does nor provide an endpoint with that specific funcionality
@@ -187,6 +193,4 @@ export class VSongCrudComponent {
     //JSON-Server does nor provide an endpoint with that funcionality
     //Similar to aforementioned case
   }
-
-
 }
