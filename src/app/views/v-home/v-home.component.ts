@@ -13,7 +13,7 @@ export class VHomeComponent {
   constructor(private songService: SongService) { }
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  songs!: Song[];
+  songs: Song[] = [];
   reason = '';
 
   close(reason: string) {
@@ -26,8 +26,10 @@ export class VHomeComponent {
   }
 
   getSongs() {
-    this.songService.getSongs().subscribe((data: Song[]) => {
-      this.songs=data
-  });
+    setTimeout(() => {
+      this.songService.getSongs().subscribe((data: Song[]) => {
+        this.songs = data
+      });
+    }, 1000); // Simulating a delay of 1 seconds, as requested
   }
 }

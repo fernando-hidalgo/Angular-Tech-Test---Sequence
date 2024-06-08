@@ -1,43 +1,52 @@
 <div>
-    <div class="another-header">
+    <div class="header">
         <button mat-icon-button color="accent" routerLink="">
             <mat-icon>arrow_back</mat-icon>
         </button>
-    
-        <p>{{song?.title}} ({{artist?.name}})</p>
-    </div>
-    
-    <app-c-song-card [title]="song?.title" [poster]="song?.poster" [genre]="song?.genre">
-    </app-c-song-card>
 
-    <div class="song-details-container">
-        <div class="song-detail">
-            <p class="detail-label">{{ 'DETAILS.RELEASE' | translate }}</p>
-            <p class="detail-value">{{ song?.year }}</p>
-        </div>
-    
-        <div class="song-detail">
-            <p class="detail-label">{{ 'DETAILS.DURATION' | translate }}</p>
-            <p class="detail-value">{{ song?.duration }} sg</p>
-        </div>
-    
-        <div class="song-detail">
-            <p class="detail-label">{{ 'DETAILS.RATING' | translate }}</p>
-            <p class="detail-value">{{ song?.rating }}</p>
-        </div>
+        <p>{{ 'DETAILS.NAV' | translate }}</p>
     </div>
-    
 
-    <div class="action">
-        <button mat-icon-button color="accent" class="action-button" (click)="editSong()">
-            <mat-icon>mode_edit</mat-icon>
-        </button>
-    
-        <button mat-icon-button color="accent" class="action-button" (click)="deleteSong()">
-            <mat-icon>delete</mat-icon>
-        </button>
+    <div *ngIf="song?.title; else skeleton">
+        <app-c-song-card [title]="song?.title" [poster]="song?.poster" [genre]="song?.genre">
+        </app-c-song-card>
+
+        <div class="song-container">
+            <div class="song-container__detail">
+                <p class="detail-label">{{ 'DETAILS.RELEASE' | translate }}</p>
+                <p class="detail-value">{{ song?.year }}</p>
+            </div>
+
+            <div class="song-container__detail">
+                <p class="song-container__detail__label">{{ 'DETAILS.DURATION' | translate }}</p>
+                <p class="song-container__detail__value">{{ song?.duration }} sg</p>
+            </div>
+
+            <div class="song-container__detail">
+                <p class="song-container__detail__label">{{ 'DETAILS.RATING' | translate }}</p>
+                <p class="song-container__detail__value">{{ song?.rating }}</p>
+            </div>
+        </div>
+
+
+        <div class="action">
+            <button mat-icon-button color="accent" class="action__button" (click)="editSong()">
+                <mat-icon>mode_edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="accent" class="action__button" (click)="deleteSong()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
     </div>
-    
+
+    <div class="content">
+        <ng-template #skeleton>
+            <div class="content__spinner">
+                <mat-spinner color="accent" class="content__spinner__spin"></mat-spinner>
+            </div>
+        </ng-template>
+    </div>
+
 </div>
-
-

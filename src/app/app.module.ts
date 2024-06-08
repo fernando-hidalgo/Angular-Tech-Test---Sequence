@@ -8,7 +8,6 @@ import { VHomeComponent } from './views/v-home/v-home.component';
 import { VSongDetailsComponent } from './views/v-song-details/v-song-details.component';
 import { VSongCrudComponent } from './views/v-song-crud/v-song-crud.component';
 import { CSongCardComponent } from './components/c-song-card/c-song-card.component';
-import { CNavbarComponent } from './components/c-navbar/c-navbar.component';
 import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +15,8 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 
 //PrimeNG
 import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 //Angular Material
 import {MatButtonModule} from '@angular/material/button';
@@ -25,6 +26,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -38,7 +41,6 @@ export function createTranslateLoader(http: HttpClient) {
     VSongDetailsComponent,
     VSongCrudComponent,
     CSongCardComponent,
-    CNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,9 @@ export function createTranslateLoader(http: HttpClient) {
 
     //NG Prime Components
     CardModule,
+    SkeletonModule,
+    ProgressSpinnerModule,
+    MatProgressSpinnerModule,
 
     //Material Components
     MatButtonModule,
