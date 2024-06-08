@@ -1,0 +1,47 @@
+:host{
+    width: 350px;
+    height: 100%;
+}
+
+.navbar{
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px gray solid;
+    }
+
+    &__slot{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px black solid;
+        gap: 23px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__spinner{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding-top: 50%;
+    }
+
+    &__spin {
+        margin-top: 100%;
+    }
+}

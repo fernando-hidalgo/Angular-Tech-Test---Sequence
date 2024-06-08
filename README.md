@@ -1,27 +1,102 @@
-# SequenceAngularTechTest
+# Sequence Angular Tech Test
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+## Configuración Inicial
 
-## Development server
+-   En primer lugar, se debe correr el comando `npm i` en la carpeta donde se localiza el package.json, para instalar las dependecias
+-   El proyecto cuenta con un backend mockeado mediante JSON Server, se debe iniciar con `npx json-server mock.json`, ubicandose en [http://localhost:3000/](http://localhost:3000/)
+-   Finalmente, se arranca el proyecto Angular mediante `ng serve`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Documentación
 
-## Code scaffolding
+### Resumen
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+La prueba consiste en la creación de una parte de una aplicación más grande, sobre la gestión de música. En concreto, la parte desarrollada corresponde a las funcionalidades relacionadas con las canciones.
 
-## Build
+### Backend (Mock)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Como se menciona previamente, el backend se ofrece mediante un archivo .json que hace las veces de BD. Mediante la librería `json-server`, se crea un backend mock con los endpoints mínimos para interactuar con dicha BD.
 
-## Running unit tests
+Este número de endpoints ha limitado, en ocasiones, la inclusión de ciertas funcionalidades al proyecto, pues si bien se podrían realizar, acabarían incurriendo en sobre-ingeniería. Considero que es más adecuado dejar dichas funcionalidades marcadas de cara a la inclusión de un backend totalmente funcional.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Un ejemplo de esto es la actualización de las obras que tiene un artista. Al crear una nueva canción, se debería incluir su ID al array `songs`. Esto debería ser tarea del backend, pero como no cuenta con esa capacidad, la opción para agregarlo desde el frontend sería
 
-## Running end-to-end tests
+1.  Obtener el ID de la nueva canción (GET)
+2.  Obtener el artista en cuestión, con una búsqueda por su ID (GET)
+3.  Modificar el artista, y devolverlo actualizado a la BD (PUT)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Como se ha mencionado, es un claro caso de sobre-ingeniería, dándole funciones de backend al frontend
 
-## Further help
+Para el cumplimiento del retador de 1sg (1000ms) requerido, se ha optado por la simulación de dicho retardo mediante código en el propio proyecto, dado que json-server ha eliminado el soporte para incluir retardo a las consultas.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Gestión de la Carga
+
+Relacionado a dicho retardo, se ha cumplimentado el requisito de gestión de la carga, incluyendo un spinner de Angular Material configurado para mostrarse mientras la aplicación obtiene los datos necesarios, proveyendo al usuario de una experiencia más satisfactoria
+
+### Modelos
+
+Para la interacción con el backend, se han creado 2 modelos, cada uno con los atributos propios de dicho objeto en BD
+
+-   Song
+-   Artist
+
+### Componentes y Vistas
+
+La gestión de los componentes se ha realizado dividiéndolos entre aquellos reutilizables, ubicados en la carpeta _components_, siguiendo la nomenclatura _c-NOMBRE_. Para este caso, se cuenta con un componente de esta índole, denominado _c-song-card_, una carta donde se muestra información de la canción, inspirada directamente del diseño preliminar proporcionado
+
+Por otro lado, los componentes que hacen las veces de vistas, ubicados en la carpeta _views_, siguiendo la nomenclatura _v-NOMBRE_. Para este caso, existen 3 vistas, cada una relacionada con las funcionalidades implementadas
+
+-   v-home: Vista inicial donde se muestra el listado de canciones
+-   v-song-details: Vista con información más detallada de la canción, accesible al seleccionar alguna de las cartas
+-   v-song-crud: Vista CRUD para la creación de una nueva obra, o edición de una ya existente, mediante el uso de un formulario
+
+### Formulario
+
+El formulario está principalmente construido mediante el uso de componentes de la librería Angular Material, de rápida configuración y convenientemente mantenida por Google. Además dichos campos cuentan con validaciones por defecto, aunque se han incluido otras como campos requeridos o número máximo de dígitos en el año
+
+En concreto, se ha optado por recurrir a inputs de texto básico, calendario (datepicker), selector (dropdown) y tags
+
+### Services
+
+La interacción con el backend se ha realizado mediante la creación de un servicio por cada una de las vistas, con los endpoints necesarios para nutrir al frontend de los datos.
+
+Cada endpoint recurre a un archivo de constantes para conocer la ruta en cuestión, facilitando el mantenimiento del proyecto y la escalabilidad y, de la misma manera, al host en el que se encuentre el backend, dejándolo preparado para despegarlo en un futuro
+
+### Lazy Loading
+
+Se ha configurado el routing de las vistas para funcionar mediante Lazy Loading, permitiendo así una mayor velocidad de respuesta y una escalabilidad más aproximada a la realidad según el proyecto crezca
+
+### i18n
+
+Cumpliendo el requisito especificado, el proyecto se encuentra configurado para la internacionalización mediante la librería `ngx-translate`
+
+Una vez añadidos los módulos correspondientes, se crea un archivo .json por cada uno de los idiomas disponibles (para este caso, solo se ha requerido el español), donde se alojan los literales a mostrar. En cada una de las vistas, se recurre a dichos literales mediante la estructura `{{LANGUAGE.LITERAL | translate}}`
+
+### CSS
+Para el estilado, se ha recurrido a SCSS (Sass: Syntactically Awesome Style Sheets), por las capacidades extra que aporta frente a CSS convencional, con el anidamiento de las clases.
+
+Para facilitar dicho anidamiento, se usa una nomenclatura padre-hijo para las clases, por ejemplo
+
+-   div padre -> class="card"
+-   div hijo -> class="card__content"
+
+El diseño en escritorio se muestra apegado a la vista móvil, siendo esta responsiva en múltiples dispositivos
+
+### Testing
+Para el testing, se ha utilizado la herramienta Karma Jasmine, opción por defecto de Agular, desarrollando tests para las nuevas vistas, componentes y servicios de interacción con el backend
+
+### Git y Github
+Para la gestión del desarrollo, se ha recurrido a Git como herramienta de control de versiones, alojando el código en Github.
+
+La estructura de ramas elegida ha sido
+- master: Versión estable del código
+- develop: Código incrementado, durante el desarrollo
+- feature/: Ramas con el incremento funcional desarrollado en cada caso. Cada una de estas ramas está numerada con el identificador de la tarea en cuestión, disponible en la pestaña Proyecto de Github
+
+Para cada uno de los commits, se ha optado por seguir la nomenclatura estipulada por el estándar Conventional Commits, con el uso de la palabra clave *feat* para cada incremento
+
+Asimismo, para la inclusión de cada incremento en las ramas padre (master, develop) se ha recurrido al uso de Pull Requests, marcando en ella datos de interes, como tags, proyecto o rama
+
+## Mejoras Futuras
+En caso de contar con más tiempo para el desarrollo de la prueba, sería conveniente añadir elementos de alerta al usuario, según sus interacciones (toasts)
+
+Asímismo, pero mejorar aún más la escalabilidad del proyecto, la inclusón de gestión de estados mediante NgRx, para reducir el tiempo de respuesta de la aplicación en las constantes consultas al backend

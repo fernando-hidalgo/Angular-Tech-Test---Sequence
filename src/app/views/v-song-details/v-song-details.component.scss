@@ -1,0 +1,60 @@
+:host{
+    width: 350px;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid;
+    align-items: flex-end;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__button {
+        margin: 0 5px;
+    }
+}
+
+.song-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    &__detail {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        &__label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        &__value {
+            margin-left: 10px;
+        }
+    }
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__spinner{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding-top: 50%;
+    }
+
+    &__spin {
+        margin-top: 100%;
+    }
+}

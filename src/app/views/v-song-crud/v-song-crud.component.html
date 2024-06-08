@@ -1,0 +1,100 @@
+<div>
+    <div class="header">
+        <button mat-icon-button color="accent" routerLink="">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    
+        <p>{{ 'CRUD.NAV' | translate }}</p>
+    </div>
+    
+    <form [formGroup]="crudForm" class="form" *ngIf="this.musicians.length; else skeleton">
+        <mat-form-field color="accent">
+          <mat-label>{{ 'CRUD.TITLE' | translate }}</mat-label>
+          <input matInput placeholder="Indique el título de la canción" formControlName="songTitle">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" color="accent">
+            <mat-label>{{ 'CRUD.ARTIST' | translate }}</mat-label>
+            <mat-select (selectionChange)="onMusicianSelected($event)" placeholder="Indique el artista de la canción" formControlName="songArtist">
+              <mat-option *ngFor="let musician of musicians" [value]="musician.id">
+                {{ musician.name }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>{{ 'CRUD.RATING' | translate }}</mat-label>
+            <input matInput type="number" step="0.1" placeholder="Indique la puntuación" formControlName="songRating">
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>{{ 'CRUD.DURATION' | translate }}</mat-label>
+            <input matInput type="number" step="50" placeholder="Indique la duración, en segundos" formControlName="songDuration">
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>{{ 'CRUD.RELEASE' | translate }}</mat-label>
+            <input matInput [matDatepicker]="dp" placeholder="Indique el año de lanzamiento" formControlName="songRelease" >
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp startView="multi-year" (yearSelected)="setYear($event, dp)">
+            </mat-datepicker>
+        </mat-form-field>
+
+        <div [formGroup]="crudForm" class="form__tag-input">
+            <mat-form-field class="form__tag-input__field" color="accent">
+                <mat-label>{{ 'CRUD.GENRES' | translate }}</mat-label>
+                <input matInput placeholder="Indique el o los géneros" formControlName="songGenres">
+            </mat-form-field>
+            <button mat-icon-button color="accent" (click)="addGenre()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div>
+            <div *ngFor="let genre of genres" class="form__tag-display">
+                <mat-chip-row>
+                    <mat-chip (removed)="removeGenre(genre)">
+                        {{genre}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-row>
+            </div>
+        </div>
+
+        <div [formGroup]="crudForm" class="form__tag-input">
+            <mat-form-field class="form__tag-input__field" color="accent">
+                <mat-label>{{ 'CRUD.COMPANIES' | translate }}</mat-label>
+                <input matInput placeholder="Indique la o las compañías" formControlName="songCompanies">
+            </mat-form-field>
+            <button mat-icon-button color="accent" (click)="addCompany()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div>
+            <div *ngFor="let company of companies" class="form__tag-display">
+                <mat-chip-row>
+                    <mat-chip (removed)="removeCompany(company)">
+                        {{company}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-row>
+            </div>
+        </div>
+
+        <div class="action">
+            <button type="submit" mat-icon-button color="accent" class="action__button" (click)="createSong()" [disabled]="crudForm.invalid">
+                <mat-icon>check</mat-icon>
+            </button>
+        </div>
+    </form>
+
+    <ng-template #skeleton>
+        <div class="content__spinner">
+            <mat-spinner color="accent" class="content__spinner__spin"></mat-spinner>
+        </div>
+    </ng-template>
+
+</div>
