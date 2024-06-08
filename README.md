@@ -95,3 +95,8 @@ La estructura de ramas elegida ha sido
 Para cada uno de los commits, se ha optado por seguir la nomenclatura estipulada por el estándar Conventional Commits, con el uso de la palabra clave *feat* para cada incremento
 
 Asimismo, para la inclusión de cada incremento en las ramas padre (master, develop) se ha recurrido al uso de Pull Requests, marcando en ella datos de interes, como tags, proyecto o rama
+
+## Mejoras Futuras
+En caso de contar con más tiempo para el desarrollo de la prueba, sería conveniente añadir elementos de alerta al usuario, según sus interacciones (toasts)
+
+Asímismo, pero mejorar aún más la escalabilidad del proyecto, la inclusón de gestión de estados mediante NgRx, para reducir el tiempo de respuesta de la aplicación en las constantes consultas al backend
